@@ -1,6 +1,4 @@
-import math
-import time
-import sys
+import math, time, sys
 import numpy as np
 from matplotlib import pyplot
 def graf(acel):

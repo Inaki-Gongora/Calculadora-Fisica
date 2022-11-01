@@ -2,13 +2,22 @@ import math, time, sys
 import numpy as np
 from matplotlib import pyplot
 def graf(acel):
-  x = np.array(range(100))
+  fig, (ax1,ax2) = pyplot.subplots(1,2,sharex=True)
+  x = np.array(range(20))
   y = np.zeros(len(x))
+  y2= acel
   for i in range (len(x)):
     (y[i]) = acel*x[i]
-  pyplot.plot (x,y)
+  
+  ax1.plot (x,y)
+  pyplot.axhline(y=y2,color = "r")
   pyplot.xlabel ("Tiempo en segundos")
-  pyplot.ylabel ("Velocidad")
+  ax1.set_ylabel ("Velocidad en metros por segundo")
+  ax1.set_title ("Velocidad")
+  ax1.grid()
+  ax2.set_title("Aceleración")
+  ax2.set_ylabel("Aceleración en metros por segundo cuadrado")
+  ax2.grid()
   pyplot.show()
   print ("Gráfico de la velocidad con respecto al tiempo con una aceleración de:", acel,"m/s^2")
 
@@ -72,10 +81,11 @@ while x==True:
     delay_print ("\nSi: 1\nNo: 2")
     plano=int(input("\n"))
     if plano==1:
-        ang=float(input("Ingrese la inclinación en grados (0°-90°)"))
+        ang=float(input("Ingrese la inclinación en grados (0° hasta 90°)"))
         while ang > 90 or ang<0:
             print ("Eso no es una opción válida.")
             ang=float(input("Ingrese la inclinación en grados (0°-90°)"))
+        ang=ang-ang*2
         ang=math.radians(ang)
         delay_print("CALCULADORA DE ACELERACIÓN")
         grav=9.8
@@ -97,7 +107,7 @@ while x==True:
                 delay_print ("\nEl objeto se moverá")
                 acel=(fuerzaNeta-fric_dinamica)/masa
                 if acel<0:
-                    print("El objeto se moverá cuesta arriba")
+                    print("El objeto se moverá cuesta abajo")
                 print("\nLa aceleración es: ",acel,"m/s^2")
                 acel=round(acel,4)
                 resultado="El resultado número: ",cont_resultados," es igual a : ",acel,"m/s^2"
@@ -113,7 +123,7 @@ while x==True:
             fuerzaNeta=fuerza+pesoX
             acel=fuerzaNeta/masa
             if acel<0:
-                print("El objeto se moverá cuesta arriba")
+                print("El objeto se moverá cuesta abajo")
             print("\nLa aceleración es: ",acel,"m/s^2")
             acel=round(acel,4)
             resultado="El resultado número: ",cont_resultados," es igual a: ",acel,"m/s^2"
